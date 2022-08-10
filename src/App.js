@@ -2,51 +2,67 @@
 import styled from "styled-components";
 // import React from "react";
 // import { useSelector } from "react-redux";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useSelector } from "react";
 import axios from "axios"; // axios import 합니다.
 
+
 const App = () => {
+  // const { detail } = useSelector((state) => state.detail);
   
-  const [details, setDetails] = useState({     // POST 요청 // // 추가하기 //
+  const [details, setDetails] = useState({     // POST 요청 details // // 추가하기 //
     title: "",
     
   });
-  const [detail, setDetail] = useState(null);  // GET 요청 // // 조회하기 //
+  const [getdetail, setGetDetail] = useState(null);  // GET 요청 detail // // 조회하기 //
 
-	// axios를 통해서 get 요청을 하는 함수를 생성합니다.
-	// 비동기처리를 해야하므로 async/await 구문을 통해서 처리합니다.
+  const [targetId, setTargetId] = useState(null);  // PATCH 요청 
+  const [editTodo, setEditTodo] = useState({
+    title: "",
+  });
+	
+  // const fetchDetail = async () => {
+  //     const { data } = await axios.get("http://localhost:3001/detail");  // GET
+  //     setDetail(data); 
+  //   };
+  //   useEffect(() => {
+  //   fetchDetail("http://localhost:3001/detail")
+  //   .then(res => {
+  //     return res.json();
+  //   })
+  //   .then(data => {
+  //     setDetail(data);
+  //   });
+  // }, []);  
+  
   const fetchDetail = async () => {
-    const { data } = await axios.get("http://localhost:3001/detail");
-    setDetail(data); // 서버로부터 fetching한 데이터를 useState의 state로 set 합니다.
+    const { data } = await axios.get("http://localhost:3001/detail");  // GET
+    setGetDetail(data); 
   };
-	
-	
   useEffect(() => {
-		
     fetchDetail();
   }, []);
 
-  console.log(detail); 
-
+	
   const onSubmitHandler = (details) => {
-    axios.post("http://localhost:3001/detail", details);
+    axios.post("http://localhost:3001/detail", details);    // POST
   };
 
   const onClickDeleteButtonHandler = (detailsId) => {
-    axios.delete(`http://localhost:3001/detail/${detailsId}`);
-  };  
+    axios.delete(`http://localhost:3001/detail/${detailsId}`);   // DELETE
+  };
+  
+  const onClickEditButtonHandler = (detailsId, edit) => {
+    axios.patch(`http://localhost:3001/detail/${detailsId}`, edit);  // PATCH
+  };
   
   return (
-        
-        
-        <>
+      <>
         <form
         onSubmit={(e) => {
-					// 👇 submit했을 때 브라우저의 새로고침을 방지합니다. 
           e.preventDefault();
           onSubmitHandler(details);
         }}
-      >
+        >
         <input
           type="text"
           onChange={(ev) => {
@@ -60,21 +76,20 @@ const App = () => {
         <button>추가하기</button>
       </form>
       <div>
-        {/* {detail?.map((details) => { */}
-          {/* // <div key={details.id}>{details.title}</div>         // 주석 처리 풀면 에러 // */}
-          {/* console.log(details);
-        })} */}
-        
+        {getdetail?.map((details) => (
+          <div key={details.id}>
+            {details.title}
+            {details.content}
             <button
               type="button"
               onClick={() => onClickDeleteButtonHandler(details.id)}
             >
               삭제하기
             </button>
-          
-        
+            </div>
+        ))}
       </div>
-
+      
         <Image_Container>
           <Image_Title>
             title
@@ -83,9 +98,50 @@ const App = () => {
         <Info_Container>
           <Info_Title>
             info
+            
           </Info_Title>
+          {/* <div>
+            {detail.map((detailmap) => (
+                    <div key={detailmap.id}>{detailmap.title}</div>
+            ))}
+          </div> */}
+          <div>
+        {getdetail?.map((details) => (
+          <div key={details.id}>
+            {details.title}
+            {details.content}
+            
+            </div>
+        ))}
+      </div>
+          <input
+              type="text"
+              placeholder="제목을 입력해주세요."
+              onChange={(ev) => {
+                setTargetId(ev.target.value);
+              }}
+            />
+            <input
+            type="text"
+            placeholder="내용을 입력해주세요."
+            onChange={(ev) => {
+              setEditTodo({
+                ...editTodo,
+                title: ev.target.value,
+              });
+            }}
+          />
+          <button
+						// type='button' 을 추가해야 form의 영향에서 벗어남
+            type="button"
+            onClick={() => onClickEditButtonHandler(targetId, editTodo)}
+          >
+            수정하기
+          </button>
         </Info_Container>
-        </>
+        
+      
+      </>
   );
 };
 
