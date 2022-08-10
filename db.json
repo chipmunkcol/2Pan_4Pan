@@ -1,9 +1,13 @@
 {
-  "todos": [
+  "detail": [
     {
-      "id": 1,
-      "title": "json-server",
-      "content": "json-server를 배워봅시당~!"
+      "id": "1",
+      "title": "react",
+      "content": "내용"
+    },
+    {
+      "title": "sdfsdfsdfe",
+      "id": "iuAubKG"
     }
   ]
 }
