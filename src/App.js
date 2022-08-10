@@ -20,14 +20,13 @@ const App = () => {
     setDetail(data); // 서버로부터 fetching한 데이터를 useState의 state로 set 합니다.
   };
 	
-	// 생성한 함수를 컴포넌트가 mount 됐을 떄 실행하기 위해 useEffect를 사용합니다.
+	
   useEffect(() => {
-		// effect 구문에 생성한 함수를 넣어 실행합니다.
+		
     fetchDetail();
   }, []);
 
-	// data fetching이 정상적으로 되었는지 콘솔을 통해 확인합니다.
-  console.log(detail); // App.js:16
+  console.log(detail); 
 
   const onSubmitHandler = (details) => {
     axios.post("http://localhost:3001/detail", details);
