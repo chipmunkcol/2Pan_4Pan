@@ -1,20 +1,22 @@
 // src/App.js
 import styled from "styled-components";
 // import React from "react";
-// import { useSelector } from "react-redux";
-import React, { useEffect, useState, useSelector } from "react";
+import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 import axios from "axios"; // axios import 합니다.
+// import Router from "./shared/Router";
 
 
 const App = () => {
-  // const { detail } = useSelector((state) => state.detail);
+  // const  detail  = useSelector((state) => state.detail);
   
   const [details, setDetails] = useState({     // POST 요청 details // // 추가하기 //
     title: "",
     
+    
   });
   const [getdetail, setGetDetail] = useState(null);  // GET 요청 detail // // 조회하기 //
-
+  console.log(getdetail);
   const [targetId, setTargetId] = useState(null);  // PATCH 요청 
   const [editTodo, setEditTodo] = useState({
     title: "",
@@ -75,46 +77,17 @@ const App = () => {
         />
         <button>추가하기</button>
       </form>
-      <div>
-        {getdetail?.map((details) => (
-          <div key={details.id}>
-            {details.title}
-            {details.content}
-            <button
-              type="button"
-              onClick={() => onClickDeleteButtonHandler(details.id)}
-            >
-              삭제하기
-            </button>
-            </div>
-        ))}
-      </div>
-      
         <Image_Container>
           <Image_Title>
             title
           </Image_Title>
         </Image_Container>
         <Info_Container>
+          
           <Info_Title>
             info
-            
           </Info_Title>
-          {/* <div>
-            {detail.map((detailmap) => (
-                    <div key={detailmap.id}>{detailmap.title}</div>
-            ))}
-          </div> */}
-          <div>
-        {getdetail?.map((details) => (
-          <div key={details.id}>
-            {details.title}
-            {details.content}
-            
-            </div>
-        ))}
-      </div>
-          <input
+          {/* <input
               type="text"
               placeholder="제목을 입력해주세요."
               onChange={(ev) => {
@@ -129,19 +102,31 @@ const App = () => {
                 ...editTodo,
                 title: ev.target.value,
               });
-            }}
-          />
-          <button
+            }} */}
+          {/* /> */}
+          {/* <button
 						// type='button' 을 추가해야 form의 영향에서 벗어남
             type="button"
             onClick={() => onClickEditButtonHandler(targetId, editTodo)}
           >
             수정하기
-          </button>
+          </button> */}
+          <div>
+            {getdetail?.map((details) => (
+          <div key={details.id}>
+            
+            <div>
+              <Info_FormLabel>Title: {details.title}</Info_FormLabel>
+              <Info_FormLabel>Content: {details.content}</Info_FormLabel>
+            </div>
+          </div>
+        ))}
+          </div>
         </Info_Container>
         
-      
+        {/* <Router />; */}
       </>
+      
   );
 };
 
@@ -191,5 +176,9 @@ const Info_Title = styled.div`
   background: linear-gradient(180deg, #FFFFFF -12.5%, #E3E3E3 100%);
 `;  
 
-
+const Info_FormLabel = styled.form`
+  font-size: 14px;
+  padding: 0 20px;
+  margin : 15px;
+`;
 
