@@ -7,6 +7,7 @@ import axios from 'axios';
 import { __addNumber, __getTodos } from "../store";
 
 
+
 const Detail = () => {
 
   const { isLoading, error, todos } = useSelector((state) => state.todos);
@@ -22,14 +23,14 @@ const Detail = () => {
 
 
   const current_obj = todos.find((data) => data.id === Number(id))
-  
-  if(todos.length === 0) {
+
+  if (todos.length === 0) {
     return (
       <StWrapper>
         <h1>로딩중!</h1>
       </StWrapper>
-    ) 
-  } else{
+    )
+  } else {
     return (
       <>
         <GlobalStyle />
@@ -38,19 +39,20 @@ const Detail = () => {
             <h1>title: {current_obj.title}</h1>
             <h1>content: {current_obj.content}</h1>
             <Stbutton
-              onClick={() => {navigate("/")
-              }}style={{ cursor: "pointer" }}>
+              onClick={() => {
+                navigate("/")
+              }} style={{ cursor: "pointer" }}>
               메인으로
             </Stbutton>
           </StItem>
         </StWrapper>
       </>
     );
-    
+
   }
 
 
-          }
+}
 
 export default Detail;
 
