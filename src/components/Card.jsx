@@ -68,6 +68,7 @@ const StCard = styled.div`
   box-shadow: 2px 4px 8px 2px rgba(0, 0, 0, 0.06);
   border: 1px solid #D7D7D7;
   border-radius: 4px;
+  margin-bottom: 40px;
 `
 
 const StSpan = styled.span`

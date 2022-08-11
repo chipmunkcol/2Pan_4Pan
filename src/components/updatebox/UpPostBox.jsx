@@ -13,17 +13,17 @@ import AddImage from "./UpAddImage";
 
 const PostBox = (fileImage) => {
 
-    
+
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         dispatch(__getTodos());
     }, [])
-    
+
     const { isLoading, error, todos } = useSelector((state) => state.todos);
     const { id } = useParams();
-    const up_todo = todos.find((data) =>  data.id === Number(id))
-    
+    const up_todo = todos.find((data) => data.id === Number(id))
+
     const [urlFile, setUrlFile] = useState(up_todo.imgUrl)
 
     return (
@@ -39,8 +39,8 @@ const PostBox = (fileImage) => {
                     이미지에는 이미지 값을 저장하는 state를 생성
                     state를 생성해서 부모에서 선언한 props로 저장한 이미지 state를 가져가서 사용하기
                 */}
-                <AddImage urlFile={urlFile} setUrlFile={setUrlFile}/>
-                <InputBox urlFile={urlFile}/>
+                <AddImage urlFile={urlFile} setUrlFile={setUrlFile} />
+                <InputBox urlFile={urlFile} />
             </PostBoxWrap>
         </>
     );
@@ -51,6 +51,8 @@ const PostBoxTop = styled.div`
     background: linear-gradient(180deg, #FFFFFF -12.5%, #E3E3E3 100%);
     border: 1px solid #D7D7D7;
     border-radius: 4px 4px 0 0;
+    padding: 4px 0;
+    text-align: center;
 `;
 
 const PostBoxWrap = styled.div`

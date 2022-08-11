@@ -35,7 +35,6 @@ const Main = () => {
 
     return (
       <>
-        <GlobalStyle />
         <StHeader>
           <img src={main_logo} onClick={() => { navigate("/") }}></img>
           <Btn onClick={() => { navigate("/post") }}>Post</Btn>
@@ -51,26 +50,6 @@ const Main = () => {
 }
 
 export default Main;
-
-
-const GlobalStyle = createGlobalStyle`
-  * {
-    margin: 0;
-    padding: 0;
-    font-family: 'Gothic A1', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-  }
-
-  body {
-    box-sizing: border-box;
-    height:100%;
-  }
-
-  html {
-    height:100%;
-  }
-`
 
 const StHeader = styled.div`
   width: 1032px;

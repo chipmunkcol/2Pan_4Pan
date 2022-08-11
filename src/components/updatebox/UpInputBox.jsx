@@ -10,18 +10,18 @@ import { Routes, Route, Link, useNavigate, Outlet, useParams } from "react-route
 import { v4 as uuid_v4 } from "uuid";
 import { Navigate } from "react-router-dom";
 
-const InputBox = ({urlFile}) => {
+const InputBox = ({ urlFile }) => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(__getTodos());
-      }, [])
+    }, [])
 
-      const { isLoading, error, todos } = useSelector((state) => state.todos);
-      const { id } = useParams();
-      const up_todo = todos.find((data) =>  data.id === Number(id))
+    const { isLoading, error, todos } = useSelector((state) => state.todos);
+    const { id } = useParams();
+    const up_todo = todos.find((data) => data.id === Number(id))
 
 
     const [title, setTitle] = useState(up_todo.title);
@@ -29,14 +29,14 @@ const InputBox = ({urlFile}) => {
 
     const handlePost = () => {
         // if (!title || !contents || !imgUrl) return alert("빈칸 없이 입력해 주세요");
-        if (!title || !contents) return alert("빈칸 없이 입력해 주세요");
+        if (!title || !contents || !urlFile) return alert("빈칸 없이 입력해 주세요");
         const newPost = {
             title: title,
             content: contents,
             imgUrl: urlFile
         }
         console.log(id, newPost)
-        dispatch(updateList({id, newPost}))
+        dispatch(updateList({ id, newPost }))
         navigate("/");
     }
 
